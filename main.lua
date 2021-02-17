@@ -49,7 +49,7 @@ function love.draw()
 		love.graphics.draw(tile, x, y+100)
 		love.graphics.draw(, x+, y, r)
 	elseif playable == false and level =="menu" then
-		love.graphics.draw(love.graphics.newText(bitfont, "FILLER NAME"), 280 , 230,0,2,2)
+		love.graphics.draw(love.graphics.newText(bitfont, "ARTHAS"), 280 , 230,0,2,2)
 		love.graphics.draw(love.graphics.newText(bitfont, "Press enter to start"),287 , 300,0,1,1)
 			if love.keyboard.isDown("return") then
 				playable=true
