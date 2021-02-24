@@ -81,19 +81,19 @@ function love.draw()
 			end
 	elseif room=="expositionone" then
 			love.graphics.draw(love.graphics.newText(bitfont, "You wake up in the weapons bay."),280 , 70,0,.8,.8)
-				wait(.5)
+				wait(.6)
 				love.graphics.draw(love.graphics.newText(bitfont, "Everything was a blur to you at first when the memory of the attack came rushing back to you.."),280 , 90,0,.8,.8)
-				wait(.5)
+				wait(.6)
 				love.graphics.draw(love.graphics.newText(bitfont, "You remember that you and your friends were initially going to the escape pods however the three of you split up when you saw a group of pirates heading in your direction."),280 , 110,0,.8,.8)
-				wait(.5)
+				wait(.6)
 				love.graphics.draw(love.graphics.newText(bitfont, "You ran to the weapons bay in hopes of finding a place to hide only to trip on a small crate and hit your head on the floor, knocking you out."),280 , 130,0,.8,.8)
-				wait(.5)
+				wait(.6)
 				love.graphics.draw(love.graphics.newText(bitfont, "Pulling out your communicator, you try to contact the first and 2nd engineer but all you heard was static on their end."),280 , 150,0,.8,.8)
-				wait(.5)
+				wait(.6)
 				love.graphics.draw(love.graphics.newText(bitfont, "Realizing that your friends are missing, you get on your feet and set your goal on finding a way off the ship."),280 , 170,0,.8,.8)
-				wait(.5)
+				wait(.6)
 				love.graphics.draw(love.graphics.newText(bitfont, "From what you can tell based on the condition of the ship, you were unconscious for at least a couple of hours which means you don’t have a lot of time left to find a functioning escape pod before the ship is completely destroyed."),280 , 190,0,.8,.8)
-				wait(.5)
+				wait(.6)
 		end
 	end
 end
