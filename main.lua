@@ -3,6 +3,7 @@ function love.load()
 	rick=love.graphics.newImage("rickImage.png")
 	tile=love.graphics.newImage("tile.png")
 	mainTheme = love.audio.newSource("URMUM.mp3", "static")
+	weaponsRoom = love.graphics.newImage("Weapons_room.png")
 	int=2
 	player = love.graphics.newImage("Astronaut.png")
 	--110*110
@@ -67,12 +68,7 @@ function love.draw(dt)
 	if room == "weapons bay" then
 
 			love.graphics.draw(player, x+350, y+300)
-			love.graphics.rectangle("fill", 250, 0, 200, 50)
-			love.graphics.rectangle("fill", 450,0,250,50)
-			love.graphics.rectangle("fill", 0,0,250,50)
-			love.graphics.rectangle("fill", 0,0,50,600)
-			love.graphics.rectangle("fill", 0,550,700,100)
-			love.graphics.rectangle("fill", 750,0,50,600)
+			love.graphics.draw(weaponsRoom, 0,0)
 	elseif room=="menu" then
 		love.graphics.draw(love.graphics.newText(bitfont, "ARTHAS"), 280 , 230,0,2,2)
 		love.graphics.draw(love.graphics.newText(bitfont, "Press enter to start"),287 , 300,0,1,1)
