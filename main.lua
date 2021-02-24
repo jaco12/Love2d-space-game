@@ -10,7 +10,7 @@ function love.load()
 	x=0
 	y=0
 	speed = 80
-	bitfont = love.graphics.newFont("8BIT WONDER Nominal.ttf")
+	bitfont = love.graphics.newFont("8-bit.ttf")
 	playable=false
 	room ="menu"
 end
@@ -63,8 +63,8 @@ end
 
 
 
-function love.draw()
-	if level == "weapons bay" then
+function love.draw(dt)
+	if room == "weapons bay" then
 
 			love.graphics.draw(player, x+350, y+300)
 			love.graphics.rectangle("fill", 250, 0, 200, 50)
@@ -80,20 +80,18 @@ function love.draw()
 				room = "expositionone"
 			end
 	elseif room=="expositionone" then
-			love.graphics.draw(love.graphics.newText(bitfont, "You wake up in the weapons bay."),280 , 70,0,.8,.8)
-				wait(1)
-				love.graphics.draw(love.graphics.newText(bitfont, "Everything was a blur to you at first when the memory of the attack came rushing back to you.."),280 , 90,0,.8,.8)
-				wait(1)
-				love.graphics.draw(love.graphics.newText(bitfont, "You remember that you and your friends were initially going to the escape pods however the three of you split up when you saw a group of pirates heading in your direction."),280 , 110,0,.8,.8)
-				wait(1)
-				love.graphics.draw(love.graphics.newText(bitfont, "You ran to the weapons bay in hopes of finding a place to hide only to trip on a small crate and hit your head on the floor, knocking you out."),280 , 130,0,.8,.8)
-				wait(1)
-				love.graphics.draw(love.graphics.newText(bitfont, "Pulling out your communicator, you try to contact the first and 2nd engineer but all you heard was static on their end."),280 , 150,0,.8,.8)
-				wait(1)
-				love.graphics.draw(love.graphics.newText(bitfont, "Realizing that your friends are missing, you get on your feet and set your goal on finding a way off the ship."),280 , 170,0,.8,.8)
-				wait(1)
-				love.graphics.draw(love.graphics.newText(bitfont, "From what you can tell based on the condition of the ship, you were unconscious for at least a couple of hours which means you don’t have a lot of time left to find a functioning escape pod before the ship is completely destroyed."),280 , 190,0,.8,.8)
-				wait(1)
+			love.graphics.draw(love.graphics.newText(bitfont, "You wake up in the weapons bay. Everything was a blur to you at first when the memory of"),0, 70,0,.8,.8)
+				love.graphics.draw(love.graphics.newText(bitfont, "the attack came rushing back to you. You remember that you and your friends were initially"),0 , 90,0,.8,.8)
+				love.graphics.draw(love.graphics.newText(bitfont, " going to the escape pods however the three of you split up when you saw a group of "),0 , 110,0,.8,.8)
+				love.graphics.draw(love.graphics.newText(bitfont, "pirates heading in your direction. You ran to the weapons bay in hopes of finding "),0 , 130,0,.8,.8)
+				love.graphics.draw(love.graphics.newText(bitfont, "a place to hide only to trip on a small crate and hit your head on the floor, "),0 , 150,0,.8,.8)
+				love.graphics.draw(love.graphics.newText(bitfont, "knocking you out. Pulling out your communicator, you try to contact the first and 2nd "),0 , 170,0,.8,.8)
+				love.graphics.draw(love.graphics.newText(bitfont, "engineer but all you heard was static on their end. Realizing that your friends are "),0 , 190,0,.8,.8)
+				love.graphics.draw(love.graphics.newText(bitfont,"missing, you get on your feet and set your goal on finding a way off the ship. ", 0,210,0,.8,.8))
+				love.graphics.draw(love.graphics.newText(bitfont,"From what you can tell based on the condition of the ship, you were unconscious ", 0,230,0,.8,.8))
+				love.graphics.draw(love.graphics.newText(bitfont,"for at least a couple of hours which means you don’t have a lot of time left to ",0,250,0,.8,.8))
+				love.graphics.draw(love.graphics.newText(bitfont,"find a functioning escape pod before the ship is completely destroyed.",0,270,0,.8,.8))
+
 		end
 	end
 end
