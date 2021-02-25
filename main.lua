@@ -1,11 +1,13 @@
 --Imports
 function love.load()
-	rick=love.graphics.newImage("rickImage.png")
-	tile=love.graphics.newImage("tile.png")
 	mainTheme = love.audio.newSource("URMUM.mp3", "static")
 	weaponsRoom = love.graphics.newImage("Weapons_room.png")
 	int=2
 	player = love.graphics.newImage("Astronaut.png")
+	hall = love.graphics.newImage("Basic_tile_left_right.png")
+	engineRoom = love.graphics.newImage("Engine_room_damaged.png")
+	interact = love.graphics.newImage("New_piskel.png")
+	captain = love.graphics.newImage("New_piskel_2.png")
 	--110*110
 --vars
 	x=0
@@ -68,7 +70,9 @@ function love.draw(dt)
 	if room == "weapons bay" then
 
 			love.graphics.draw(player, x+350, y+300)
-			love.graphics.draw(weaponsRoom, 0,0)
+			--love.graphics.draw(weaponsRoom, 0,0)
+			love.graphics.setColor(80, 0, 0, 4)
+			love.graphics.rectangle("fill", 0, 0, 700, 500)
 	elseif room=="menu" then
 		love.graphics.draw(love.graphics.newText(bitfont, "ARTHAS"), 280 , 230,0,2,2)
 		love.graphics.draw(love.graphics.newText(bitfont, "Press enter to start"),287 , 300,0,1,1)
@@ -76,7 +80,7 @@ function love.draw(dt)
 				room = "expositionone"
 			end
 	elseif room=="expositionone" then
-			love.graphics.draw(love.graphics.newText(bitfont, "You wake up in the weapons bay. Everything was a blur to you at first when the memory of"),0, 70,0,.8,.8)
+				love.graphics.draw(love.graphics.newText(bitfont, "You wake up in the weapons bay. Everything was a blur to you at first when the memory of"),0, 70,0,.8,.8)
 				love.graphics.draw(love.graphics.newText(bitfont, "the attack came rushing back to you. You remember that you and your friends were initially"),0 , 90,0,.8,.8)
 				love.graphics.draw(love.graphics.newText(bitfont, " going to the escape pods however the three of you split up when you saw a group of "),0 , 110,0,.8,.8)
 				love.graphics.draw(love.graphics.newText(bitfont, "pirates heading in your direction. You ran to the weapons bay in hopes of finding "),0 , 130,0,.8,.8)
@@ -87,7 +91,9 @@ function love.draw(dt)
 				love.graphics.draw(love.graphics.newText(bitfont,"From what you can tell based on the condition of the ship, you were unconscious ", 0,230,0,.8,.8))
 				love.graphics.draw(love.graphics.newText(bitfont,"for at least a couple of hours which means you don’t have a lot of time left to ",0,250,0,.8,.8))
 				love.graphics.draw(love.graphics.newText(bitfont,"find a functioning escape pod before the ship is completely destroyed.",0,270,0,.8,.8))
-
+				if love.keyboard.isDown("return") then
+					room ="weapons bay"
+				end
 		end
 	end
 end
