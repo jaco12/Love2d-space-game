@@ -20,6 +20,9 @@ function love.load()
 	room ="menu"
 	dtotal=0
 end
+function love.keyreleased(key)
+   return(key)
+end
 function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
   return x1 < x2+w2 and
          x2 < x1+w1 and
@@ -80,7 +83,7 @@ function love.draw()
 	elseif room=="menu" then
 		love.graphics.draw(love.graphics.newText(bitfont, "ARTHAS"), 280 , 230,0,2,2)
 		love.graphics.draw(love.graphics.newText(bitfont, "Press enter to start"),287 , 300,0,1,1)
-			if love.keyboard.isDown("return") and room == "menu" then
+			if love.keyreleased("return") and room == "menu" then
 				room = "expositionone"
 			end
 	elseif room=="expositionone" then
@@ -95,8 +98,8 @@ function love.draw()
 				love.graphics.draw(love.graphics.newText(bitfont,"From what you can tell based on the condition of the ship, you were unconscious "),0,230,0,1.4,1.4)
 				love.graphics.draw(love.graphics.newText(bitfont,"for at least a couple of hours which means you don’t have a lot of time left to "),0,250,0,1.4,1.4)
 				love.graphics.draw(love.graphics.newText(bitfont,"find a functioning escape pod before the ship is completely destroyed."),0,270,0,1.4,1.4)
-	elseif dtotal >= 3 and room== "exposition one"then
+	elseif love.keyreleased("return") and room== "exposition one"then
 				room ="weapons bay"
-	end
+			end
 	end
 end
