@@ -14,7 +14,7 @@ function love.load()
 	time=love.timer.getTime()
 	x=0
 	y=0
-	speed = 80
+	speed = 130
 	bitfont = love.graphics.newFont("8-bit.ttf")
 	playable=false
 	room ="menu"
@@ -95,8 +95,8 @@ function love.draw()
 		nextscene = 1
 	elseif room == "weapons bay" then
 			playable=true
-			love.graphics.draw(player, x+350, y+300)
 			love.graphics.draw(weaponsRoom, 0,0)
+			love.graphics.draw(player, x+350, y+300)
 			--love.graphics.setColor(80, 0, 0, 4)
 			--love.graphics.rectangle("fill", 0, 0, 10, 10)
 	end
