@@ -18,6 +18,7 @@ function love.load()
 	bitfont = love.graphics.newFont("8-bit.ttf")
 	playable=false
 	room ="menu"
+	dtotal=0
 end
 function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
   return x1 < x2+w2 and
@@ -28,6 +29,9 @@ end
 
 --every frame
 function love.update(dt)
+	dtotal = dtotal + dt
+	print(dtotal)
+
 	love.audio.play(mainTheme)
 		if playable == true then
 			if love.keyboard.isDown('right') then
@@ -91,8 +95,8 @@ function love.draw()
 				love.graphics.draw(love.graphics.newText(bitfont,"From what you can tell based on the condition of the ship, you were unconscious "),0,230,0,1.4,1.4)
 				love.graphics.draw(love.graphics.newText(bitfont,"for at least a couple of hours which means you don’t have a lot of time left to "),0,250,0,1.4,1.4)
 				love.graphics.draw(love.graphics.newText(bitfont,"find a functioning escape pod before the ship is completely destroyed."),0,270,0,1.4,1.4)
-				love.timer.sleep(3)
-				room="weapons bay"
+	elseif dtotal >= 3 and room== "exposition one"then
+				room ="weapons bay"
 	end
 	end
 end
