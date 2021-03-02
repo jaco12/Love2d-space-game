@@ -10,6 +10,7 @@ function love.load()
 	interact = love.graphics.newImage("New_piskel.png")
 	captain = love.graphics.newImage("New_piskel_2.png")
 	--110*110
+
 --vars
 	time=love.timer.getTime()
 	x=0
@@ -38,29 +39,77 @@ function love.update(dt)
 			elseif love.keyboard.isDown('left') then
 				x = x - (speed * dt)
 			elseif love.keyboard.isDown('down') then
-				y=y+(speed*dt)
+				y = y + (speed*dt)
 			elseif love.keyboard.isDown('up') then
-				y=y-(speed*dt)
+				y = y - (speed*dt)
 		end
 
 		if room == "weapons bay" then
-			if CheckCollision(x+350,y+300,110,110,800,0,5,600)then
-				x= x-(speed*dt)
+			if CheckCollision(x+350,y+300,110,110,698,0,2,600) then
+				x = x-(speed*dt)
 			end
-			if CheckCollision(x+350,y+300,110,110,0,600,800,5)then
-				y= y-(speed*dt)
-			end
-			if CheckCollision(x+350,y+300,110,110,0,0,5,600)then
+			-- ^right of screen boundary
 
+			if CheckCollision(x+350,y+300,110,110,0,0,2,140) then
+				x = x+(speed*dt)
+				end
+			if CheckCollision(x+350,y+300,110,110,0,410,2,600) then
+				x = x+(speed*dt)
+				end
+			-- ^left of screen boundary
+
+			if CheckCollision(x+350,y+300,110,110,0,0,700,2) then
+				y = y+(speed*dt)
 			end
-			if CheckCollision(x+350,y+300,110,110,0,0,800,5)then
-				y= y+(speed*dt)
+			-- ^top of screen boundary
+
+			if CheckCollision(x+350,y+300,110,110,0,598,700,2)then
+				y = y-(speed*dt)
 			end
-			if CheckCollision(x+350,y+300,110,110,0,230,80,110)then
+			-- ^bottom of screen boundary
+
+			if CheckCollision(x+350,y+300,110,110,0,250,1,100)then
 				room = "hallway"
-				x=690 y= 250
+				x=150
+				y=-50
+			-- weapons bay to hallway detection (left side)
 			end
 		end
+
+
+		if room == "hallway" then
+			if CheckCollision(x+350,y+300,110,110,698,0,2,140) then
+				x= x-(speed*dt)
+			end
+			if CheckCollision(x+350,y+300,110,110,698,410,2,600) then
+				x= x-(speed*dt)
+			end
+			-- ^right of screen boundary
+			-- the hallway background needs a door so the player knows they can return to weapons bay
+
+			if CheckCollision(x+350,y+300,110,110,0,0,2,600) then
+				x= x+(speed*dt)
+			end
+			-- ^left of screen boundary
+
+			if CheckCollision(x+350,y+300,110,110,0,0,700,2) then
+				y= y+(speed*dt)
+			end
+			-- ^top of screen boundary
+
+			if CheckCollision(x+350,y+300,110,110,0,598,700,2)then
+				y= y-(speed*dt)
+			end
+			-- ^bottom of screen boundary
+
+			if CheckCollision(x+350,y+300,110,110,698,250,1,100)then
+				room = "weapons bay"
+				x=-340
+				y=-50
+			-- hallway to weapons bay detection (right side)
+			end
+		end
+
 end
 end
 
@@ -92,12 +141,12 @@ function love.draw()
 		love.graphics.draw(love.graphics.newText(bitfont, " Press enter to continue "),0,310,0,1.4,1.4)
 		nextscene = 1
 	elseif room == "weapons bay" then
-			playable=true
-			love.graphics.draw(weaponsRoom, 0,0)
-			love.graphics.draw(player, x+350, y+300)
+		playable=true
+		love.graphics.draw(weaponsRoom, 0,0)
+		love.graphics.draw(player, x+350, y+300)
 	elseif room == "hallway" then
 		playable=true
 		love.graphics.draw(hall,0,0)
-		love.graphics.draw(player, x, y)
+		love.graphics.draw(player, x+350, y+300)
 	end
 end
