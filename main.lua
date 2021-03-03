@@ -15,6 +15,7 @@ function love.load()
 	time=love.timer.getTime()
 	x=0
 	y=0
+	journal=true
 	speed = 130
 	bitfont = love.graphics.newFont("8-bit.ttf")
 	playable=false
@@ -43,93 +44,95 @@ function love.update(dt)
 			elseif love.keyboard.isDown('up') then
 				y = y - (speed*dt)
 		end
-
-		if room == "weapons bay" then
-			if CheckCollision(x+350,y+300,110,110,698,0,2,600) then
+	end
+	if playable == true then
+		if CheckCollision(x,y,110,110,698,0,2,600) then
 				x = x-(speed*dt)
-			end
-			-- ^right of screen boundary
+		end
+		-- ^right of screen boundary
+		if CheckCollision(x,y,110,110,0,0,2,600) then
+			x = x+(speed*dt)
+		end
+		-- ^left of screen boundary
 
-			if CheckCollision(x+350,y+300,110,110,0,0,2,140) then
-				x = x+(speed*dt)
-				end
-			if CheckCollision(x+350,y+300,110,110,0,410,2,600) then
-				x = x+(speed*dt)
-				end
-			-- ^left of screen boundary
+		if CheckCollision(x,y,110,110,0,0,700,2) then
+			y = y+(speed*dt)
+		end
+		-- ^top of screen boundary
 
-			if CheckCollision(x+350,y+300,110,110,0,0,700,2) then
-				y = y+(speed*dt)
-			end
-			-- ^top of screen boundary
-
-			if CheckCollision(x+350,y+300,110,110,0,598,700,2)then
-				y = y-(speed*dt)
-			end
-			-- ^bottom of screen boundary
-
-			if CheckCollision(x+350,y+300,110,110,0,250,1,100)then
-				room = "hallway"
-				x=150
-				y=-50
+		if CheckCollision(x,y,110,110,0,598,700,2)then
+			y = y-(speed*dt)
+		end
+		-- ^bottom of screen boundary
+end
+		if room == "weapons bay" then
+			if CheckCollision(x,y,110,110,6,250,1,100)then
+				room = "hallway1"
+				x=500
+				y=234
 			-- weapons bay to hallway detection (left side)
 			end
 		end
 
+		if room == "hallway1" then
 
-		if room == "hallway" then
-			if CheckCollision(x+350,y+300,110,110,698,0,2,140) then
-				x= x-(speed*dt)
-			end
-			if CheckCollision(x+350,y+300,110,110,698,410,2,600) then
-				x= x-(speed*dt)
-			end
-			if CheckCollision(x+350,y+300,110,110,0,0,5,600)then
-				x=x+(speed*dt)
-			end
-			-- ^left of screen boundary
-
-			if CheckCollision(x+350,y+300,110,110,0,0,700,2) then
-				y= y+(speed*dt)
-			end
-			-- ^top of screen boundary
-
-			if CheckCollision(x+350,y+300,110,110,0,598,700,2)then
-				y= y-(speed*dt)
-			end
-			-- ^bottom of screen boundary
-
-			if CheckCollision(x+350,y+300,110,110,698,250,1,100)then
+			if CheckCollision(x,y,110,110,690,250,1,100)then
 				room = "weapons bay"
-				x=-340
-				y=-50
+				x=150
+				y=234
 			-- hallway to weapons bay detection (right side)
 			end
-		else if room == "hallway" then
-				if CheckCollision(x+350,y+300,110,110,795,0,5,600)then
-					x= x-(speed*dt)
-				end
-				if CheckCollision(x+350,y+300,110,110,0,600,800,5)then
-					y= y-(speed*dt)
-				end
-				if CheckCollision(x+350,y+300,110,110,0,0,5,600)then
-					x=x-(speed*dt)
-				end
-				if CheckCollision(x+350,y+300,110,110,0,0,800,5)then
-					y= y+(speed*dt)
-				end
-				if CheckCollision(x+350,y+300,110,110,0,230,80,110)then
-					room = " "
-					x=690 y= 250
-				end
-				if CheckCollision(x+350,y+300,110,110,720,230,80,110)then
-					room = "weapons bay"
-					x=-220 y= -50
-				end
+			if CheckCollision(x,y,110,110,200,400,50,50)and journal==true then
+				room = "journal"
+			-- journal exposition
+			end
+			if CheckCollision(x,y,110,110,17,250,1,100)then
+				room = "hallway2"
+				x=500
+				y=234
+		-- to next hall left
+			end
 		end
-
-end
-end
+		if room == "hallway2" then
+			if CheckCollision(x,y,110,110,690,250,1,100)then
+				room = "hallway1"
+				x=150
+				y=234
+			-- to previuos hall right
+			end
+		if CheckCollision(x,y,110,110,270,15,100,15)then
+			room = "hallway3"
+			x=300
+			y=480
+		-- to next hall up
+		end
+	end
+			if room == "hallway3" then
+					if CheckCollision(x,y,110,110,690,250,1,100)then
+						room = "quartermaster"
+						x=150
+						y=234
+						--goal right side
+					end
+					if CheckCollision(x,y,110,110,17,250,1,100)then
+						room = "hallway4"
+						x=500
+						y=234
+				-- to next hall left
+					end
+					if CheckCollision(x,y,110,110,270,15,100,15)then
+						room = "hallway5"
+						x=300
+						y=460
+						-- to other halls up
+				end
+				if CheckCollision(x,y,110,110,270,580,100,15)then
+					room = "hallway2"
+					x=300
+					y=460
+					-- to previous hall
+			end
+			end
 end
 function love.keyreleased(key)
 		if key == "return" and room == "menu" then
@@ -138,12 +141,17 @@ function love.keyreleased(key)
 		if key == "return" and room == "expositionone" and nextscene == 1 then
 			room = "weapons bay"
 		end
+		if key == "return" and room == "journal" and nextscene == 1 then
+			room = "hallway1"
+		end
 end
 
 function love.draw()
 	if room=="menu" then
 		love.graphics.draw(love.graphics.newText(bitfont, "ARTHAS"), 280 , 230,0,2,2)
 		love.graphics.draw(love.graphics.newText(bitfont, "Press enter to start"),287 , 300,0,1,1)
+		y=300
+		x=350
 	elseif room=="expositionone" then
 		love.graphics.draw(love.graphics.newText(bitfont, "You wake up in the weapons bay. Everything was a blur to you at first when the memory of"),0,70,0,1.4,1.4)
 		love.graphics.draw(love.graphics.newText(bitfont, "the attack came rushing back to you. You remember that you and your friends were initially"),0,90,0,1.4,1.4)
@@ -161,12 +169,44 @@ function love.draw()
 	elseif room == "weapons bay" then
 		playable=true
 		love.graphics.draw(weaponsRoom, 0,0)
-		love.graphics.draw(player, x+350, y+300)
-	elseif room == "hallway" then
+		love.graphics.draw(player, x, y)
+	elseif room == "hallway1" then
 		playable=true
 		love.graphics.draw(hall,0,0)
 		love.graphics.draw(interact,200,400)
 		love.graphics.draw(player, x, y)
-
+		love.graphics.setColor(0, 0, 200, 40)
+		love.graphics.rectangle("fill", 680, 250, 15, 100)
+		love.graphics.rectangle("fill", 17, 250, 15, 100)
+		love.graphics.setColor(1, 1, 1,100)
+	elseif room == "hallway2" then
+		playable=true
+		love.graphics.draw(hall,0,0)
+		love.graphics.draw(player, x, y)
+		love.graphics.setColor(0, 0, 200, 40)
+		love.graphics.rectangle("fill", 680, 250, 15, 100)
+		love.graphics.rectangle("fill", 270, 15, 100, 15)
+		love.graphics.setColor(1, 1, 1,100)
+	elseif room == "hallway3" then
+		playable=true
+		love.graphics.draw(hall,0,0)
+		love.graphics.draw(player, x, y)
+		love.graphics.setColor(0, 0, 200, 40)
+		love.graphics.rectangle("fill", 680, 250, 15, 100)
+		love.graphics.rectangle("fill", 300, 15, 100, 15)
+		love.graphics.rectangle("fill", 300, 580, 100, 15)
+		love.graphics.rectangle("fill", 15, 250, 15, 100)
+		love.graphics.setColor(1, 1, 1,100)
+	elseif room == "journal" then
+		playable=false
+		love.graphics.draw(love.graphics.newText(bitfont, "You see the captains journal on the ground and pick it up."),0,70,0,1.4,1.4)
+		love.graphics.draw(love.graphics.newText(bitfont, "In side the jounal is the captains contigency plan for if the ship ever got attacked."),0,90,0,1.4,1.4)
+		love.graphics.draw(love.graphics.newText(bitfont, "As that is currently what is happening you think this might be helpful."),0,110,0,1.4,1.4)
+		love.graphics.draw(love.graphics.newText(bitfont, "The journal talks about how you can leave the ship using one of the four escape pods,"),0,130,0,1.4,1.4)
+		love.graphics.draw(love.graphics.newText(bitfont, "however only one of the four escape pods is powered and you don't know which."),0,150,0,1.4,1.4)
+		love.graphics.draw(love.graphics.newText(bitfont, "While reading the journal you remember that the keycards and map should be."),0,170,0,1.4,1.4)
+		love.graphics.draw(love.graphics.newText(bitfont, "They'll be in the quarter masters office."),0,190,0,1.4,1.4)
+		love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,210,0,1.4,1.4)
+		journal=false
 	end
 end
