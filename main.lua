@@ -9,6 +9,7 @@ function love.load()
 	engineRoom = love.graphics.newImage("Engine_room_damaged.png")
 	interact = love.graphics.newImage("New_piskel.png")
 	captain = love.graphics.newImage("New_piskel_2.png")
+	keycard = love.graphics.newImage("New_Piskel_3")
 	--110*110
 
 --vars
@@ -16,7 +17,7 @@ function love.load()
 	x=0
 	y=0
 	journal=true
-	speed = 130
+	speed = 400--130
 	bitfont = love.graphics.newFont("8-bit.ttf")
 	playable=false
 	room ="menu"
@@ -103,20 +104,20 @@ end
 		if CheckCollision(x,y,110,110,270,15,100,15)then
 			room = "hallway3"
 			x=300
-			y=480
+			y=460
 		-- to next hall up
 		end
 	end
 			if room == "hallway3" then
 					if CheckCollision(x,y,110,110,690,250,1,100)then
-						room = "quartermaster"
+						room = "hallway6"
 						x=150
 						y=234
 						--goal right side
 					end
 					if CheckCollision(x,y,110,110,17,250,1,100)then
 						room = "hallway4"
-						x=500
+						x=450
 						y=234
 				-- to next hall left
 					end
@@ -133,6 +134,33 @@ end
 					-- to previous hall
 			end
 			end
+			if room == "hallway4" then
+					if CheckCollision(x,y,110,110,690,250,1,100)then
+						room = "hallway3"
+						x=150
+						y=234
+						--gO BACK right side
+					end
+				end
+				if CheckCollision(x,y,110,110,270,580,100,15)then
+					room = "hallway7"
+					x=300
+					y=460
+					-- to goal down
+			end
+			end
+			if room == "hallway7" then
+					end
+					if CheckCollision(x,y,110,110,17,250,1,100)and key1==true then
+						room = "key1"
+				-- interact
+					end
+					if CheckCollision(x,y,110,110,270,15,100,15)then
+						room = "hallway4"
+						x=300
+						y=460
+						-- to previous hall up
+				end
 end
 function love.keyreleased(key)
 		if key == "return" and room == "menu" then
@@ -192,10 +220,43 @@ function love.draw()
 		love.graphics.draw(hall,0,0)
 		love.graphics.draw(player, x, y)
 		love.graphics.setColor(0, 0, 200, 40)
-		love.graphics.rectangle("fill", 680, 250, 15, 100)
-		love.graphics.rectangle("fill", 300, 15, 100, 15)
-		love.graphics.rectangle("fill", 300, 580, 100, 15)
-		love.graphics.rectangle("fill", 15, 250, 15, 100)
+		love.graphics.rectangle("fill", 680, 250, 15, 100)--right
+		love.graphics.rectangle("fill", 300, 15, 100, 15)--up
+		love.graphics.rectangle("fill", 300, 580, 100, 15)--down
+		love.graphics.rectangle("fill", 15, 250, 15, 100)--left
+		love.graphics.setColor(1, 1, 1,100)
+	elseif room == "hallway4" then
+		playable=true
+		love.graphics.draw(hall,0,0)
+		love.graphics.draw(player, x, y)
+		love.graphics.setColor(0, 0, 200, 40)
+		love.graphics.rectangle("fill", 680, 250, 15, 100)--right
+		love.graphics.rectangle("fill", 300, 15, 100, 15)--up
+		love.graphics.setColor(1, 1, 1,100)
+	elseif room == "hallway5" then
+		playable=true
+		love.graphics.draw(hall,0,0)
+		love.graphics.draw(player, x, y)
+		love.graphics.setColor(0, 0, 200, 40)
+		love.graphics.rectangle("fill", 680, 250, 15, 100)--right
+		love.graphics.rectangle("fill", 300, 15, 100, 15)--up
+		love.graphics.rectangle("fill", 15, 250, 15, 100)--left
+		love.graphics.setColor(1, 1, 1,100)
+	elseif room == "hallway6" then
+		playable=true
+		love.graphics.draw(hall,0,0)
+		love.graphics.draw(player, x, y)
+		love.graphics.setColor(0, 0, 200, 40)
+		love.graphics.rectangle("fill", 680, 250, 15, 100)--right
+		love.graphics.rectangle("fill", 300, 15, 100, 15)--up
+		love.graphics.setColor(1, 1, 1,100)
+	elseif room == "hallway7" then
+		playable=true
+		love.graphics.draw(hall,0,0)
+		love.graphics.draw(keycard,234,670)
+		love.graphics.draw(player, x, y)
+		love.graphics.setColor(0, 0, 200, 40)
+		love.graphics.rectangle("fill", 300, 15, 100, 15)--up
 		love.graphics.setColor(1, 1, 1,100)
 	elseif room == "journal" then
 		playable=false
@@ -205,8 +266,14 @@ function love.draw()
 		love.graphics.draw(love.graphics.newText(bitfont, "The journal talks about how you can leave the ship using one of the four escape pods,"),0,130,0,1.4,1.4)
 		love.graphics.draw(love.graphics.newText(bitfont, "however only one of the four escape pods is powered and you don't know which."),0,150,0,1.4,1.4)
 		love.graphics.draw(love.graphics.newText(bitfont, "While reading the journal you remember that the keycards and map should be."),0,170,0,1.4,1.4)
-		love.graphics.draw(love.graphics.newText(bitfont, "They'll be in the quarter masters office."),0,190,0,1.4,1.4)
+		love.graphics.draw(love.graphics.newText(bitfont, "They'll be in a nearby hallway."),0,190,0,1.4,1.4)
 		love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,210,0,1.4,1.4)
 		journal=false
 	end
+elseif room == "key1" then
+		playable=false
+		love.graphics.draw(love.graphics.newText(bitfont, "You have found the first keycard and will now be able to progress"),0,70,0,1.4,1.4)
+		love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,210,0,1.4,1.4)
+		key1=true
+		end
 end
