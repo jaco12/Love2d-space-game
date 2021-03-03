@@ -22,7 +22,10 @@ function love.load()
 	speed = 400--130
 	bitfont = love.graphics.newFont("8-bit.ttf")
 	key1=false
+	key2=false
+	key3=false
 	inter=false
+	captalk=false
 	playable=false
 	room ="menu"
 	nextscene = 0
@@ -174,7 +177,7 @@ end
 					end
 					if room == "hallway6" then
 							if CheckCollision(x,y,110,110,690,250,1,100)then
-								room = "hallway6"
+								room = "hallway10"
 								x=150
 								y=234
 								--goal right side
@@ -224,6 +227,20 @@ end
 				-- interact
 					end
 			end
+			if room == "hallway10" then
+					if CheckCollision(x,y,110,110,17,250,1,100)then
+						room = "hallway6"
+						x=450
+						y=234
+				-- to next hall left
+					end
+					if CheckCollision(x,y,110,110,270,15,100,15)and key2==true then
+						room = "hallway12"
+						x=300
+						y=460
+						-- to other halls up
+					end
+			end
 			if room == "hallway11" then
 					if CheckCollision(x,y,110,110,690,250,1,100)then
 						room = "hallway8"
@@ -238,6 +255,112 @@ end
 						-- to other halls up
 					end
 			end
+			if room == "hallway12" then
+					if CheckCollision(x,y,110,110,270,15,100,15) and key2==true then
+						room = "hallway13"
+						x=300
+						y=460
+						-- to other halls up
+					end
+					if CheckCollision(x,y,110,110,270,580,100,15)then
+						room = "hallway10"
+						x=300
+						y=70
+						-- to previous hall down
+					end
+			end
+			if room == "engine room" then
+					if CheckCollision(x,y,110,110,270,580,100,15)then
+						room = "hallway11"
+						x=300
+						y=70
+						-- to previous hall down
+					end
+					if CheckCollision(x,y,110,110,100,250,50,50)and key2==false then
+						room = "key2"
+				-- interact
+					end
+			end
+			if room == "hallway13" then
+					if CheckCollision(x,y,110,110,17,250,1,100)then
+						room = "medbay"
+						x=450
+						y=234
+				-- to next hall left
+					end
+					if CheckCollision(x,y,110,110,270,580,100,15)then
+						room = "hall12"
+						x=300
+						y=70
+						-- to previous hall down
+					end
+			end
+			if room == "hallway14" then
+					if CheckCollision(x,y,110,110,17,250,1,100)then
+						room = "hallway15"
+						x=450
+						y=234
+				-- to next hall left
+					end
+					if CheckCollision(x,y,110,110,270,15,100,15)then
+						room = "escape pod"
+						x=300
+						y=460
+						-- to other halls up
+					end
+					if CheckCollision(x,y,110,110,270,580,100,15)then
+						room = "medbay"
+						x=300
+						y=70
+						-- to previous hall down
+					end
+			end
+			if room == "hallway15" then
+					if CheckCollision(x,y,110,110,690,250,1,100)then
+						room = "hallway14"
+						x=150
+						y=234
+						--goal right side
+					end
+					if CheckCollision(x,y,110,110,17,250,1,100)then
+						room = "hallway16"
+						x=450
+						y=234
+				-- to next hall left
+					end
+			end
+			if room == "hallway16" then
+					if CheckCollision(x,y,110,110,690,250,1,100)then
+						room = "hallway15"
+						x=150
+						y=234
+						--goal right side
+					end
+					if CheckCollision(x,y,110,110,234,122,50,50)then
+						room = "key3"
+						x=150
+						y=234
+						--interact
+					end
+			end
+			if room == "medbay" then
+				if CheckCollision(x,y,110,110,690,250,1,100)then
+					room = "hallway13"
+					x=150
+					y=234
+					--goal right side
+				end
+				if CheckCollision(x,y,110,110,270,15,100,15)then
+					room = "hallway14"
+						x=300
+						y=460
+			-- to other halls up
+			end
+			if CheckCollision(x,y,110,110,300,250,50,50)then
+				room = "captalk"
+		-- to other halls up
+		end
+		end
 end
 function love.keyreleased(key)
 		if key == "return" and room == "menu" then
@@ -255,7 +378,15 @@ function love.keyreleased(key)
 		if key == "return" and room == "intercom"then
 			room = "hallway9"
 		end
-
+		if key == "return" and room == "key2"then
+			room = "engine room"
+		end
+		if key == "return" and room == "captalk"then
+			room = "medbay"
+		end
+		if key == "return" and room == "key3"then
+			room = "hall 16"
+		end
 end
 
 function love.draw()
@@ -359,10 +490,69 @@ function love.draw()
 			love.graphics.setColor(0, 0, 200, 40)
 			love.graphics.rectangle("fill", 300, 580, 100, 15)--down
 			love.graphics.setColor(1, 1, 1,100)
+		elseif room == "hallway10" then
+			playable=true
+			love.graphics.draw(hall,0,0)
+			love.graphics.draw(player, x, y)
+			love.graphics.setColor(0, 0, 200, 40)
+			love.graphics.rectangle("fill", 300, 15, 100, 15)--up
+			love.graphics.rectangle("fill", 15, 250, 15, 100)--left
+			love.graphics.setColor(1, 1, 1,100)
 		elseif room == "hallway11" then
 			playable=true
 			love.graphics.draw(hall,0,0)
 			love.graphics.draw(player, x, y)
+			love.graphics.setColor(0, 0, 200, 40)
+			love.graphics.rectangle("fill", 680, 250, 15, 100)--right
+			love.graphics.rectangle("fill", 300, 15, 100, 15)--up
+			love.graphics.setColor(1, 1, 1,100)
+		elseif room == "hallway12" then
+			playable=true
+			love.graphics.draw(hall,0,0)
+			love.graphics.draw(player, x, y)
+			love.graphics.setColor(0, 0, 200, 40)
+			love.graphics.rectangle("fill", 300, 15, 100, 15)--up
+			love.graphics.rectangle("fill", 300, 580, 100, 15)--down
+			love.graphics.draw(lock,400,15)
+			love.graphics.setColor(1, 1, 1,100)
+		elseif room == "hallway13" then
+			playable=true
+			love.graphics.draw(hall,0,0)
+			love.graphics.draw(player, x, y)
+			love.graphics.setColor(0, 0, 200, 40)
+			love.graphics.rectangle("fill", 300, 580, 100, 15)--down
+			love.graphics.rectangle("fill", 15, 250, 15, 100)--left
+			love.graphics.setColor(1, 1, 1,100)
+		elseif room == "hallway14" then
+			playable=true
+			love.graphics.draw(hall,0,0)
+			love.graphics.draw(player, x, y)
+			love.graphics.setColor(0, 0, 200, 40)
+			love.graphics.rectangle("fill", 300, 15, 100, 15)--up
+			love.graphics.rectangle("fill", 300, 580, 100, 15)--down
+			love.graphics.rectangle("fill", 15, 250, 15, 100)--left
+			love.graphics.setColor(1, 1, 1,100)
+		elseif room == "hallway15" then
+			playable=true
+			love.graphics.draw(hall,0,0)
+			love.graphics.draw(player, x, y)
+			love.graphics.setColor(0, 0, 200, 40)
+			love.graphics.rectangle("fill", 680, 250, 15, 100)--right
+			love.graphics.rectangle("fill", 15, 250, 15, 100)--left
+			love.graphics.setColor(1, 1, 1,100)
+		elseif room == "hallway16" then
+			playable=true
+			love.graphics.draw(hall,0,0)
+			love.graphics.draw(player, x, y)
+			love.graphics.draw(interact,234,122)
+			love.graphics.setColor(0, 0, 200, 40)
+			love.graphics.rectangle("fill", 680, 250, 15, 100)--right
+			love.graphics.setColor(1, 1, 1,100)
+		elseif room == "medbay" then
+			playable=true
+			love.graphics.draw(hall,0,0)
+			love.graphics.draw(player, x, y)
+			love.graphics.draw(interact,300,250)
 			love.graphics.setColor(0, 0, 200, 40)
 			love.graphics.rectangle("fill", 680, 250, 15, 100)--right
 			love.graphics.rectangle("fill", 300, 15, 100, 15)--up
@@ -379,6 +569,7 @@ function love.draw()
 			playable=false
 			love.graphics.draw(love.graphics.newText(bitfont, "You have found the first keycard and will now be able to progress"),0,70,0,1.4,1.4)
 			love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,90,0,1.4,1.4)
+			love.graphics.draw(keycard,20,120)
 			key1=true
 		elseif room == "journal" then
 			playable=false
@@ -399,5 +590,25 @@ function love.draw()
 			love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,130,0,1.4,1.4)
 			love.graphics.draw(intercom,20,150)
 			inter=true
+		elseif room == "key2" then
+			playable=false
+			love.graphics.draw(love.graphics.newText(bitfont, "In the destroyed engine room you have found the second keycard"),0,70,0,1.4,1.4)
+			love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,90,0,1.4,1.4)
+			love.graphics.draw(keycard,20,120)
+			key2=true
+		elseif room == "key3" then
+			playable=false
+			love.graphics.draw(love.graphics.newText(bitfont, "You find the final key in a far off hall."),0,70,0,1.4,1.4)
+			love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,90,0,1.4,1.4)
+			love.graphics.draw(keycard,20,120)
+			key2=true
+		elseif room == "captalk" then
+			playable=false
+			love.graphics.draw(love.graphics.newText(bitfont, "You have arrived in the med bay and have found the captain."),0,70,0,1.4,1.4)
+			love.graphics.draw(love.graphics.newText(bitfont, "Now that you are here you can give the captain medical attention and get out."),0,90,0,1.4,1.4)
+			love.graphics.draw(love.graphics.newText(bitfont, "Once the captain is back to full health he tells you which escape pod is powered."),0,130,0,1.4,1.4)
+			love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,150,0,1.4,1.4)
+			love.graphics.draw(captain,20,180)
+			captalk=true
 		end
 end
