@@ -106,23 +106,23 @@ function love.update(dt)
 			-- hallway to weapons bay detection (right side)
 			end
 		else if room == "hallway" then
-				if CheckCollision(x,y,110,110,795,0,5,600)then
+				if CheckCollision(x+350,y+300,110,110,795,0,5,600)then
 					x= x-(speed*dt)
 				end
-				if CheckCollision(x,y,110,110,0,600,800,5)then
+				if CheckCollision(x+350,y+300,110,110,0,600,800,5)then
 					y= y-(speed*dt)
 				end
-				if CheckCollision(x,y,110,110,0,0,5,600)then
+				if CheckCollision(x+350,y+300,110,110,0,0,5,600)then
 					x=x-(speed*dt)
 				end
-				if CheckCollision(x,y,110,110,0,0,800,5)then
+				if CheckCollision(x+350,y+300,110,110,0,0,800,5)then
 					y= y+(speed*dt)
 				end
-				if CheckCollision(x,y,110,110,0,230,80,110)then
+				if CheckCollision(x+350,y+300,110,110,0,230,80,110)then
 					room = " "
 					x=690 y= 250
 				end
-				if CheckCollision(x,y,110,110,720,230,80,110)then
+				if CheckCollision(x+350,y+300,110,110,720,230,80,110)then
 					room = "weapons bay"
 					x=-220 y= -50
 				end
