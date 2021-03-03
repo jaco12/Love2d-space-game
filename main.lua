@@ -51,19 +51,40 @@ function love.update(dt)
 				y= y-(speed*dt)
 			end
 			if CheckCollision(x+350,y+300,110,110,0,0,5,600)then
-
+				x=x+(speed*dt)
 			end
 			if CheckCollision(x+350,y+300,110,110,0,0,800,5)then
 				y= y+(speed*dt)
 			end
 			if CheckCollision(x+350,y+300,110,110,0,230,80,110)then
 				room = "hallway"
-				x=690 y= 250
+				x=500 y= 250
 			end
+		else if room == "hallway" then
+				if CheckCollision(x,y,110,110,795,0,5,600)then
+					x= x-(speed*dt)
+				end
+				if CheckCollision(x,y,110,110,0,600,800,5)then
+					y= y-(speed*dt)
+				end
+				if CheckCollision(x,y,110,110,0,0,5,600)then
+					x=x-(speed*dt)
+				end
+				if CheckCollision(x,y,110,110,0,0,800,5)then
+					y= y+(speed*dt)
+				end
+				if CheckCollision(x,y,110,110,0,230,80,110)then
+					room = " "
+					x=690 y= 250
+				end
+				if CheckCollision(x,y,110,110,720,230,80,110)then
+					room = "weapons bay"
+					x=-220 y= -50
+				end
 		end
 end
 end
-
+end
 function love.keyreleased(key)
 		if key == "return" and room == "menu" then
 			room = "expositionone"
@@ -98,6 +119,8 @@ function love.draw()
 	elseif room == "hallway" then
 		playable=true
 		love.graphics.draw(hall,0,0)
+		love.graphics.draw(interact,200,400)
 		love.graphics.draw(player, x, y)
+
 	end
 end
