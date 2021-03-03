@@ -84,27 +84,14 @@ function love.update(dt)
 			if CheckCollision(x+350,y+300,110,110,698,410,2,600) then
 				x= x-(speed*dt)
 			end
-<<<<<<< HEAD
 			if CheckCollision(x+350,y+300,110,110,0,0,5,600)then
 				x=x+(speed*dt)
-=======
-			-- ^right of screen boundary
-			-- the hallway background needs a door so the player knows they can return to weapons bay
-
-			if CheckCollision(x+350,y+300,110,110,0,0,2,600) then
-				x= x+(speed*dt)
->>>>>>> e528c5b3998baf79d76c4bd96218c3cdefaba28c
 			end
 			-- ^left of screen boundary
 
 			if CheckCollision(x+350,y+300,110,110,0,0,700,2) then
 				y= y+(speed*dt)
 			end
-<<<<<<< HEAD
-			if CheckCollision(x+350,y+300,110,110,0,230,80,110)then
-				room = "hallway"
-				x=500 y= 250
-=======
 			-- ^top of screen boundary
 
 			if CheckCollision(x+350,y+300,110,110,0,598,700,2)then
@@ -117,7 +104,6 @@ function love.update(dt)
 				x=-340
 				y=-50
 			-- hallway to weapons bay detection (right side)
->>>>>>> e528c5b3998baf79d76c4bd96218c3cdefaba28c
 			end
 		else if room == "hallway" then
 				if CheckCollision(x,y,110,110,795,0,5,600)then
@@ -179,12 +165,8 @@ function love.draw()
 	elseif room == "hallway" then
 		playable=true
 		love.graphics.draw(hall,0,0)
-<<<<<<< HEAD
 		love.graphics.draw(interact,200,400)
 		love.graphics.draw(player, x, y)
 
-=======
-		love.graphics.draw(player, x+350, y+300)
->>>>>>> e528c5b3998baf79d76c4bd96218c3cdefaba28c
 	end
 end
