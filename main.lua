@@ -12,6 +12,7 @@ function love.load()
 	keycard = love.graphics.newImage("New_Piskel_3.png")
 	lock = love.graphics.newImage("lock.png")
 	intercom= love.graphics.newImage("intercom.png")
+	escapepod=love.graphics.newImage("escapepod.png")
 	--110*110
 
 --vars
@@ -302,7 +303,7 @@ end
 						y=234
 				-- to next hall left
 					end
-					if CheckCollision(x,y,110,110,270,15,100,15)then
+					if CheckCollision(x,y,110,110,270,15,100,15)and room="key3" then
 						room = "escape pod"
 						x=300
 						y=460
@@ -341,6 +342,18 @@ end
 						x=150
 						y=234
 						--interact
+					end
+			end
+			if room == "escape pod" then
+					if CheckCollision(x,y,110,110,270,580,100,15)then
+						room = "hallway2"
+						x=300
+						y=70
+						-- to previous hall down
+					end
+					if CheckCollision(x,y,110,110,300,270,50,50)then
+						room = "finale"
+						-- to previous hall down
 					end
 			end
 			if room == "medbay" then
@@ -548,6 +561,15 @@ function love.draw()
 			love.graphics.setColor(0, 0, 200, 40)
 			love.graphics.rectangle("fill", 680, 250, 15, 100)--right
 			love.graphics.setColor(1, 1, 1,100)
+		elseif room == "escape pod" then
+			playable=true
+			love.graphics.draw(hall,0,0)
+			love.graphics.draw(escapepod,100,100)
+			love.graphics.draw(interact,300,270)
+			love.graphics.draw(player, x, y)
+			love.graphics.setColor(0, 0, 200, 40)
+			love.graphics.rectangle("fill", 300, 580, 100, 15)--down
+			love.graphics.setColor(1, 1, 1,100)
 		elseif room == "medbay" then
 			playable=true
 			love.graphics.draw(hall,0,0)
@@ -610,5 +632,11 @@ function love.draw()
 			love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,150,0,1.4,1.4)
 			love.graphics.draw(captain,20,180)
 			captalk=true
+		elseif room == "finale" then
+			playable=false
+			love.graphics.draw(love.graphics.newText(bitfont, "You and the captian have successfully escaped the ship."),0,70,0,1.4,1.4)
+			love.graphics.draw(love.graphics.newText(bitfont, "Game end"),0,90,0,1.4,1.4)
+			love.graphics.draw(keycard,20,120)
+			key2=true
 		end
 end
