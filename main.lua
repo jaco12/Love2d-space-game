@@ -20,7 +20,7 @@ function love.load()
 	x=0
 	y=0
 	journal=true
-	speed = 400--130
+	speed = 200
 	bitfont = love.graphics.newFont("8-bit.ttf")
 	key1=false
 	key2=false
@@ -303,7 +303,7 @@ end
 						y=234
 				-- to next hall left
 					end
-					if CheckCollision(x,y,110,110,270,15,100,15)and room="key3" then
+					if CheckCollision(x,y,110,110,270,15,100,15)and key3 == true then
 						room = "escape pod"
 						x=300
 						y=460
@@ -337,7 +337,7 @@ end
 						y=234
 						--goal right side
 					end
-					if CheckCollision(x,y,110,110,234,122,50,50)then
+					if CheckCollision(x,y,110,110,234,122,50,50) and key3 == false then
 						room = "key3"
 						x=150
 						y=234
@@ -369,7 +369,7 @@ end
 						y=460
 			-- to other halls up
 			end
-			if CheckCollision(x,y,110,110,300,250,50,50)then
+			if CheckCollision(x,y,110,110,300,250,50,50) and captalk == false then
 				room = "captalk"
 		-- to other halls up
 		end
@@ -394,11 +394,11 @@ function love.keyreleased(key)
 		if key == "return" and room == "key2"then
 			room = "engine room"
 		end
-		if key == "return" and room == "captalk"then
+		if key == "return" and room == "captalk" and captalk == true then
 			room = "medbay"
 		end
-		if key == "return" and room == "key3"then
-			room = "hall 16"
+		if key == "return" and room == "key3" and key3 == true then
+			room = "hallway16"
 		end
 end
 
@@ -600,8 +600,8 @@ function love.draw()
 			love.graphics.draw(love.graphics.newText(bitfont, "As that is currently what is happening you think this might be helpful."),0,110,0,1.4,1.4)
 			love.graphics.draw(love.graphics.newText(bitfont, "The journal talks about how you can leave the ship using one of the four escape pods,"),0,130,0,1.4,1.4)
 			love.graphics.draw(love.graphics.newText(bitfont, "however only one of the four escape pods is powered and you don't know which."),0,150,0,1.4,1.4)
-			love.graphics.draw(love.graphics.newText(bitfont, "While reading the journal you remember that the keycards and map should be."),0,170,0,1.4,1.4)
-			love.graphics.draw(love.graphics.newText(bitfont, "They'll be in a nearby hallway."),0,190,0,1.4,1.4)
+			love.graphics.draw(love.graphics.newText(bitfont, "While reading the journal you remember that the keycards and map should be"),0,170,0,1.4,1.4)
+			love.graphics.draw(love.graphics.newText(bitfont, "in a nearby hallway."),0,190,0,1.4,1.4)
 			love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,210,0,1.4,1.4)
 			journal=false
 		elseif room == "intercom" then
@@ -623,7 +623,7 @@ function love.draw()
 			love.graphics.draw(love.graphics.newText(bitfont, "You find the final key in a far off hall."),0,70,0,1.4,1.4)
 			love.graphics.draw(love.graphics.newText(bitfont, "Press enter to continue"),0,90,0,1.4,1.4)
 			love.graphics.draw(keycard,20,120)
-			key2=true
+			key3=true
 		elseif room == "captalk" then
 			playable=false
 			love.graphics.draw(love.graphics.newText(bitfont, "You have arrived in the med bay and have found the captain."),0,70,0,1.4,1.4)
@@ -634,9 +634,8 @@ function love.draw()
 			captalk=true
 		elseif room == "finale" then
 			playable=false
-			love.graphics.draw(love.graphics.newText(bitfont, "You and the captian have successfully escaped the ship."),0,70,0,1.4,1.4)
+			love.graphics.draw(love.graphics.newText(bitfont, "You and the captain have successfully escaped the ship."),0,70,0,1.4,1.4)
 			love.graphics.draw(love.graphics.newText(bitfont, "Game end"),0,90,0,1.4,1.4)
-			love.graphics.draw(keycard,20,120)
-			key2=true
+			love.graphics.draw(love.graphics.newText(bitfont, "ARTHAS"), 280 , 230,0,2,2)
 		end
 end
