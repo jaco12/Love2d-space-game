@@ -20,7 +20,7 @@ function love.load()
 	x=0
 	y=0
 	journal=true
-	speed = 201
+	speed = 200
 	bitfont = love.graphics.newFont("8-bit.ttf")
 	key1=false
 	key2=false
